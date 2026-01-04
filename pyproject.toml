@@ -1,0 +1,32 @@
+[project]
+name = "integrations"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "backoff>=2.2.1",
+    "certifi==2025.8.3",
+    "charset-normalizer==3.4.3",
+    "colorlog==6.9.0",
+    "dotenv==0.9.9",
+    "google-api-python-client>=2.181.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-auth-oauthlib>=1.2.2",
+    "idna==3.10",
+    "oauthlib==3.3.1",
+    "pip==22.0.2",
+    "pyaes==1.6.1",
+    "pyasn1==0.6.1",
+    "python-dotenv==1.1.1",
+    "redis>=6.4.0",
+    "requests==2.32.5",
+    "requests-oauthlib==2.0.0",
+    "rsa==4.9.1",
+    "setuptools==59.6.0",
+    "telethon==1.40.0",
+    "tqdm>=4.67.1",
+    "tweepy==4.16.0",
+    "urllib3==2.5.0",
+    "yagmail>=0.15.293",
+]
