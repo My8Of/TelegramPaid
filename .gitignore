@@ -1,0 +1,11 @@
+__pycache__
+.venv
+videos_brutos
+videos_processados
+*.mp4
+small_change.sh
+.env
+*.log
+*.csv
+*.json
+*.session
