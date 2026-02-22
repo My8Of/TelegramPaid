@@ -14,7 +14,7 @@ COPY pyproject.toml .
 RUN pip install .
 
 # Copiar código fonte
-COPY . .
+COPY app/ .
 
 # Converter arquivos para formato Unix
 RUN dos2unix entrypoint.sh cronjob
@@ -30,13 +30,13 @@ RUN chmod +x entrypoint.sh
 
 # Criar diretórios necessários com permissões corretas
 RUN mkdir -p /app/videos_brutos \
-             /app/videos_processados \
-             /app/videos_telegram \
-             /app/banco_dados && \
+    /app/videos_processados \
+    /app/videos_telegram \
+    /app/sessions && \
     chmod 755 /app/videos_brutos \
-              /app/videos_processados \
-              /app/videos_telegram \
-              /app/banco_dados
+    /app/videos_processados \
+    /app/videos_telegram \
+    /app/sessions
 
 # Configurar permissões base da aplicação
 RUN chown -R root:root /app && \
@@ -45,24 +45,24 @@ RUN chown -R root:root /app && \
 
 # Configurar permissões específicas para arquivos de sessão do Telegram
 # (se existirem - não falhará se não existirem)
-RUN if [ -f "/app/sessao_telegram.session" ]; then \
-        chmod 600 /app/sessao_telegram.session && \
-        echo "Permissões configuradas para sessao_telegram.session"; \
+RUN if [ -f "/app/sessions/sessao_telegram.session" ]; then \
+    chmod 600 /app/sessions/sessao_telegram.session && \
+    echo "Permissões configuradas para sessao_telegram.session"; \
     else \
-        echo "Arquivo sessao_telegram.session não encontrado (normal na primeira execução)"; \
+    echo "Arquivo sessao_telegram.session não encontrado (normal na primeira execução)"; \
     fi
 
 RUN if [ -f "/app/sessao_telegram.session-journal" ]; then \
-        chmod 600 /app/sessao_telegram.session-journal && \
-        echo "Permissões configuradas para sessao_telegram.session-journal"; \
+    chmod 600 /app/sessao_telegram.session-journal && \
+    echo "Permissões configuradas para sessao_telegram.session-journal"; \
     else \
-        echo "Arquivo sessao_telegram.session-journal não encontrado (normal na primeira execução)"; \
+    echo "Arquivo sessao_telegram.session-journal não encontrado (normal na primeira execução)"; \
     fi
 
 # Garantir que scripts Python sejam executáveis
 RUN chmod +x /app/main.py \
-             /app/debug_cron.py \
-             /app/test_telegram_session.py 2>/dev/null || true
+    /app/debug_cron.py \
+    /app/test_telegram_session.py 2>/dev/null || true
 
 # Configurar timezone (opcional, mas útil para logs)
 ENV TZ=America/Sao_Paulo
