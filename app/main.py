@@ -8,13 +8,12 @@ from random import randint
 from dotenv import load_dotenv
 from telethon.sync import TelegramClient
 
-from src.baixar_videos import baixar_videos_do_grupo
-from src.cache_maneger import CacheManeger
-from src.drive_maneger import DriveManeger
-from src.editor_de_videos import cortar_video
-from src.subir_video import subir_video_para_telegram
-from src.utils import ColorLogger
-from src.X_poster import postar_video_no_twitter
+from app.src.cache_maneger import CacheManeger
+from app.src.drive_maneger import DriveManeger
+from app.src.editor_de_videos import cortar_video
+from app.src.subir_video import subir_video_para_telegram
+from app.src.X_poster import postar_video_no_twitter
+from app.utils.logger import ColorLogger
 
 # Configuração inicial
 load_dotenv()

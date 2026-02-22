@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 from telethon import functions, types
 from telethon.sync import TelegramClient
 
-from src.editor_de_videos import cortar_video
-from src.utils import ColorLogger
+from app.src.editor_de_videos import cortar_video
+from app.utils.logger import ColorLogger
 
 load_dotenv()
 logger = ColorLogger()

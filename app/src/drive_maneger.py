@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 from tqdm import tqdm
 
-from src.utils import ColorLogger
+from app.utils.logger import ColorLogger
 
 load_dotenv()
 logger = ColorLogger()
