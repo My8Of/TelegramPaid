@@ -2,7 +2,7 @@ import json
 import os
 import subprocess
 
-from src.utils import ColorLogger  # Usando o logger personalizado
+from app.utils.logger import ColorLogger  # Usando o logger personalizado
 
 logger = ColorLogger()
 
