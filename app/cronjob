@@ -1,0 +1,17 @@
+# Cronjob melhorado para execução robusta do script Python
+# Carrega variáveis de ambiente e define diretório de trabalho explicitamente
+
+# Definir o shell para garantir compatibilidade
+SHELL=/bin/sh
+
+# Definir PATH para garantir acesso aos executáveis
+PATH=/usr/local/bin:/usr/bin:/bin
+
+# Definir diretório HOME
+HOME=/root
+
+# minuto hora dia_do_mes mes dia_da_semana comando_a_ser_executado
+50 18 * * * cd /app && export $(cat /etc/environment | xargs) && /usr/local/bin/python3 /app/main.py paid >> /proc/1/fd/1 2>&1
+00 02 * * * cd /app && export $(cat /etc/environment | xargs) && /usr/local/bin/python3 /app/main.py >> /proc/1/fd/1 2>&1
+
+# Uma linha em branco é necessária no final do arquivo para o cron funcionar corretamente.
