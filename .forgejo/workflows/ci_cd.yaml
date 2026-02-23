@@ -1,0 +1,40 @@
+name: Automação Total DevOps
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate-and-auto-merge:
+    runs-on: docker
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necessário para realizar o merge via git
+
+      - name: Validar Build da Imagem
+        id: build_step
+        run: |
+          # Se este comando falhar, o job para aqui e o PR continua aberto com erro
+          docker build -t telegram_paid:latest .
+          echo "Build finalizado com sucesso."
+
+      - name: Merge e Cleanup Automático
+        if: success()
+        run: |
+          # Configuração de identidade para o Git
+          git config --global user.email "ci@forgejo.local"
+          git config --global user.name "DevOps Runner"
+
+          # Merge da branch do PR para a main
+          git checkout main
+          git merge --no-ff ${{ github.event.pull_request.head.ref }}
+          git push origin main
+
+          # Deletar a branch de origem via API do Forgejo
+          curl -X 'DELETE' \
+            "${{ github.server_url }}/api/v1/repos/${{ github.repository }}/branches/${{ github.event.pull_request.head.ref }}" \
+            -H "Authorization: token ${{ secrets.FORGEJO_TOKEN }}" \
+            -H "accept: application/json"

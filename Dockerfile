@@ -8,7 +8,6 @@ RUN apk update && \
 
 RUN apk add --no-cache dos2unix
 
-
 # Copiar e instalar dependências Python primeiro
 COPY pyproject.toml .
 RUN pip install .
